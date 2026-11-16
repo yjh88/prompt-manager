@@ -190,6 +190,34 @@ def search_prompt():
     print(f"\n{len(entries)}개의 프롬프트를 찾았습니다.")
 
 
+def read_prompt_number():
+    """프롬프트 번호를 입력받아 리스트 인덱스로 반환한다. 잘못된 입력이면 None."""
+    value = input("프롬프트 번호 입력: ").strip()
+    if not value.isdigit() or not 1 <= int(value) <= len(prompts):
+        print(f"⚠ 잘못된 번호입니다. 1~{len(prompts)} 사이의 번호를 입력해주세요.")
+        return None
+    return int(value) - 1
+
+
+def show_detail():
+    """번호로 선택한 프롬프트의 전체 내용을 출력한다."""
+    print("\n=== 프롬프트 상세 보기 ===")
+    index = read_prompt_number()
+    if index is None:
+        return
+
+    prompt = prompts[index]
+    line = "─" * 28
+    print(f"\n{line}")
+    print(f"제목: {prompt['title']}")
+    print(f"카테고리: {prompt['category']}")
+    print(f"즐겨찾기: {'⭐' if prompt['favorite'] else '없음'}")
+    print(line)
+    print("내용:")
+    print(prompt["content"])
+    print(line)
+
+
 # ===== 메인 =====
 
 def main():
@@ -199,6 +227,7 @@ def main():
         "2": show_list,
         "3": show_by_category,
         "4": search_prompt,
+        "5": show_detail,
         # ACTIONS-END
     }
 
