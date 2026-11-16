@@ -274,12 +274,14 @@ def main():
             break
         elif choice in actions:
             actions[choice]()
-        elif choice in MENU:
-            print("아직 준비 중인 기능입니다.")
         else:
             print("⚠ 잘못된 입력입니다. 메뉴에 있는 번호를 입력해주세요.")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except (KeyboardInterrupt, EOFError):
+        # Ctrl+C 또는 입력 종료 시 에러 대신 깔끔하게 종료
+        print("\n프로그램을 종료합니다.")
 
