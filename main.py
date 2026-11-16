@@ -170,6 +170,26 @@ def show_by_category():
     print(f"\n총 {len(entries)}개의 프롬프트")
 
 
+def search_prompt():
+    """키워드가 제목 또는 내용에 포함된 프롬프트를 검색한다."""
+    print("\n=== 프롬프트 검색 ===")
+    keyword = input_required("검색어: ").lower()
+
+    entries = [
+        (number, prompt)
+        for number, prompt in enumerate(prompts, start=1)
+        if keyword in prompt["title"].lower() or keyword in prompt["content"].lower()
+    ]
+
+    if not entries:
+        print("검색 결과가 없습니다.")
+        return
+
+    print("\n검색 결과:")
+    print_entries(entries)
+    print(f"\n{len(entries)}개의 프롬프트를 찾았습니다.")
+
+
 # ===== 메인 =====
 
 def main():
@@ -178,6 +198,7 @@ def main():
         "1": add_prompt,
         "2": show_list,
         "3": show_by_category,
+        "4": search_prompt,
         # ACTIONS-END
     }
 
