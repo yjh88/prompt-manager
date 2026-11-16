@@ -80,11 +80,57 @@ def show_menu():
         print(f"{number}. {name}")
 
 
+def input_required(label):
+    """빈 값이 아닌 입력을 받을 때까지 다시 요청한다."""
+    while True:
+        value = input(label).strip()
+        if value:
+            return value
+        print("⚠ 값이 비어 있습니다. 다시 입력해주세요.")
+
+
+def select_category():
+    """목록에서 번호를 고르거나 새 카테고리를 직접 입력해 카테고리를 정한다."""
+    print("\n카테고리 선택:")
+    for number, category in enumerate(CATEGORIES, start=1):
+        print(f"{number}) {category}")
+    print("(번호를 고르거나, 새 카테고리 이름을 직접 입력하세요)")
+
+    while True:
+        value = input_required("선택: ")
+        if value.isdigit():
+            number = int(value)
+            if 1 <= number <= len(CATEGORIES):
+                return CATEGORIES[number - 1]
+            print("⚠ 목록에 없는 번호입니다. 다시 선택해주세요.")
+        else:
+            if value not in CATEGORIES:
+                CATEGORIES.append(value)  # 직접 입력한 카테고리는 목록에 추가
+            return value
+
+
+def add_prompt():
+    """새 프롬프트를 입력받아 리스트에 추가한다."""
+    print("\n=== 프롬프트 추가 ===")
+    title = input_required("제목: ")
+    content = input_required("내용: ")
+    category = select_category()
+
+    prompts.append({
+        "title": title,
+        "content": content,
+        "category": category,
+        "favorite": False,  # 즐겨찾기 기본값
+    })
+    print("\n프롬프트가 추가되었습니다!")
+
+
 # ===== 메인 =====
 
 def main():
     """메뉴를 반복해서 보여주고, 입력한 번호의 기능을 실행한다."""
     actions = {
+        "1": add_prompt,
         # ACTIONS-END
     }
 
