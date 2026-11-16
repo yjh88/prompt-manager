@@ -60,4 +60,49 @@ prompts = [
     },
 ]
 
+# 메뉴 번호와 이름
+MENU = {
+    "1": "프롬프트 추가",
+    "2": "프롬프트 목록",
+    "3": "카테고리별 조회",
+    "4": "프롬프트 검색",
+    "5": "프롬프트 상세 보기",
+    "6": "즐겨찾기 관리",
+    "7": "즐겨찾기 목록",
+    "0": "종료",
+}
+
+
+def show_menu():
+    """메인 메뉴를 출력한다."""
+    print("\n=== 나만의 프롬프트 관리 ===")
+    for number, name in MENU.items():
+        print(f"{number}. {name}")
+
+
 # ===== 메인 =====
+
+def main():
+    """메뉴를 반복해서 보여주고, 입력한 번호의 기능을 실행한다."""
+    actions = {
+        # ACTIONS-END
+    }
+
+    while True:
+        show_menu()
+        choice = input("선택: ").strip()
+
+        if choice == "0":
+            print("프로그램을 종료합니다. 안녕히 가세요!")
+            break
+        elif choice in actions:
+            actions[choice]()
+        elif choice in MENU:
+            print("아직 준비 중인 기능입니다.")
+        else:
+            print("⚠ 잘못된 입력입니다. 메뉴에 있는 번호를 입력해주세요.")
+
+
+if __name__ == "__main__":
+    main()
+
