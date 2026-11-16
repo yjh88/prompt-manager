@@ -218,6 +218,21 @@ def show_detail():
     print(line)
 
 
+def toggle_favorite():
+    """번호로 선택한 프롬프트의 즐겨찾기를 추가하거나 해제한다."""
+    print("\n=== 즐겨찾기 관리 ===")
+    index = read_prompt_number()
+    if index is None:
+        return
+
+    prompt = prompts[index]
+    prompt["favorite"] = not prompt["favorite"]
+    if prompt["favorite"]:
+        print(f"'{prompt['title']}' 프롬프트를 즐겨찾기에 추가했습니다!")
+    else:
+        print(f"'{prompt['title']}' 프롬프트를 즐겨찾기에서 해제했습니다.")
+
+
 # ===== 메인 =====
 
 def main():
@@ -228,6 +243,7 @@ def main():
         "3": show_by_category,
         "4": search_prompt,
         "5": show_detail,
+        "6": toggle_favorite,
         # ACTIONS-END
     }
 
