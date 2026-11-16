@@ -125,6 +125,13 @@ def add_prompt():
     print("\n프롬프트가 추가되었습니다!")
 
 
+def print_entries(entries):
+    """(번호, 프롬프트) 목록을 '번호. [카테고리] 제목 ⭐' 형태로 출력한다."""
+    for number, prompt in entries:
+        star = " ⭐" if prompt["favorite"] else ""
+        print(f"{number}. [{prompt['category']}] {prompt['title']}{star}")
+
+
 # ===== 메인 =====
 
 def main():
